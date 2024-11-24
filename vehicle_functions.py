@@ -10,6 +10,24 @@ vehicle_collection = database.get_collection('vehicle')
 
 # from app import *
 
+from pymongo import MongoClient
+
+# Connect to MongoDB
+client = MongoClient("mongodb://localhost:27017/")
+
+# Select database and collection
+db = client["dltc_db"]
+collection = db["vehicle"]
+
+# Query: Find all Toyota cars
+query = {"vehicle_make": "honda"}
+documents = collection.find(query, {"_id": 0, "vehicle_make": 1, "vehicle_model": 1, "year_of_manufacture": 1})
+
+# Print results
+for doc in documents:
+    print(doc)
+
+
 def vehicle_registration():
     """Handles vehicle registration."""
     first_name = input('enter first name: ')
